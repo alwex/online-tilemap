@@ -1,11 +1,13 @@
 body {
     overflow-x: scroll;
+    padding-top: 70px;
 }
 
 #map table {
     table-layout: fixed;
     overflow-x: scroll;
     border-spacing: 0;
+    border: 1px solid red;
 }
 
 #map td {
