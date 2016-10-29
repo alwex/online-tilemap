@@ -2,8 +2,8 @@
 $roomWidth = 25;
 $roomHeight = 15;
 
-$width = $roomWidth * 5;
-$height = $roomHeight * 5;
+$width = $roomWidth * 4;
+$height = $roomHeight * 4;
 
 $tileSize = 16;
 
@@ -28,10 +28,50 @@ $tileSize = 16;
 <body>
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container-fluid">
-        <div class="btn-group" role="group">
-            <button type="button" class="btn btn-default navbar-btn">Write</button>
-            <button type="button" class="btn btn-default navbar-btn">Erase</button>
-            <button type="button" class="btn btn-default navbar-btn">Right</button>
+
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Online Map Designer</a>
+        </div>
+
+        <div class="collapse navbar-collapse">
+
+            <div class="btn-group" role="group">
+                <button type="button" class="btn btn-default navbar-btn">
+                    <span class="glyphicon glyphicon-file"></span>
+                </button>
+                <button type="button" class="btn btn-default navbar-btn">
+                    <span class="glyphicon glyphicon-folder-open"></span>
+                </button>
+                <button type="button" class="btn btn-default navbar-btn">
+                    <span class="glyphicon glyphicon-save"></span>
+                </button>
+            </div>
+            <div id="panel-tools" class="btn-group" role="group">
+                <button id="btn-pencil" type="button" class="btn btn-default navbar-btn">
+                    <span class="glyphicon glyphicon-pencil"></span>
+                </button>
+                <button id="btn-erase" type="button" class="btn btn-default navbar-btn">
+                    <span class="glyphicon glyphicon-erase"></span>
+                </button>
+                <button id="btn-font" type="button" class="btn btn-default navbar-btn">
+                    <span class="glyphicon glyphicon-font"></span>
+                </button>
+
+            </div>
+
+            <div id="panel-tools-2" class="btn-group" role="group">
+                <button id="btn-hide" type="button" class="btn btn-default navbar-btn">
+                    <span class="glyphicon glyphicon-eye-close"></span>
+                </button>
+            </div>
+
         </div>
     </div>
 </nav>
@@ -52,6 +92,12 @@ $tileSize = 16;
         </div>
     </div>
 </div>
+<div id="popover-content">
+    <div class="form-group">
+        <textarea class="form-control" rows="2" cols="10"></textarea>
+    </div>
+</div>
+
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.slim.min.js"></script>
 
 <!-- Latest compiled and minified JavaScript -->
