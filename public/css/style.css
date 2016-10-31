@@ -1,6 +1,10 @@
 body {
     overflow-x: scroll;
-    padding-top: 70px;
+    //padding-top: 70px;
+}
+
+#content-wrapper {
+    margin-top: 70px;
 }
 
 #map table {
@@ -40,4 +44,15 @@ body {
 
 .popover-content {
     padding: 5px;
+}
+
+canvas {
+    border: 1px solid black;
+    display: block;
+
+    image-rendering: optimizeSpeed;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: optimize-contrast;
+    -ms-interpolation-mode: nearest-neighbor;
 }
