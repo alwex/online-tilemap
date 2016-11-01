@@ -7,16 +7,28 @@ var tileSize = 16;
 var roomWidth = 20;
 var roomHeight = 10;
 var col = 4;
-var row = 3;
+var row = 10;
+
+// actual structure for map
+// then layers later
+var tiles = new Array();
+var tileImage = document.getElementById('tile-1');
 
 // canvas setting
 var canvas = document.getElementById('canvas');
 var context = canvas.getContext("2d");
 var initialScale = 1;
 
-context.scale(initialScale, initialScale);
-canvas.width = roomWidth * col * tileSize * initialScale;
-canvas.height = roomHeight * row * tileSize * initialScale;
+function reinitCanvas() {
+    context.scale(initialScale, initialScale);
+    canvas.width = roomWidth * col * tileSize * initialScale;
+    canvas.height = roomHeight * row * tileSize * initialScale;
+    draw();
+}
+
+canvas.addEventListener('mousemove', paint, false);
+canvas.addEventListener('mousedown', mousedown, false);
+canvas.addEventListener('mouseup', mouseup, false);
 
 // draw grid function
 function drawGrid() {
@@ -38,6 +50,7 @@ function drawGrid() {
     }
 
     context.strokeStyle = "silver";
+    context.closePath();
     context.stroke();
 
     // draw th rooms
@@ -54,126 +67,63 @@ function drawGrid() {
     }
 
     context.strokeStyle = "grey";
+    context.closePath();
     context.stroke();
 }
 
-drawGrid();
-
-var paint = false;
-
 function getMousePos(canvas, e) {
-    var rect = canvas.getBoundingClientRect(); // abs. size of element
-    var scaleX = canvas.width / rect.width;   // relationship bitmap vs. element for X
-    var scaleY = canvas.height / rect.height;  // relationship bitmap vs. element for Y
+    var rect = canvas.getBoundingClientRect();
+    var scaleX = canvas.width / rect.width;
+    var scaleY = canvas.height / rect.height;
 
     return {
-        x: parseInt(((e.clientX - rect.left) * scaleX) / (tileSize * initialScale)),// / initialScale,   // scale mouse coordinates after they have
-        y: parseInt(((e.clientY - rect.top) * scaleY) / (tileSize * initialScale))// / initialScale     // been adjusted to be relative to element
+        x: parseInt(((e.clientX - rect.left) * scaleX) / (tileSize * initialScale)),
+        y: parseInt(((e.clientY - rect.top) * scaleY) / (tileSize * initialScale))
     }
 }
 
-
-var tiles = new Array();
-
-function drawTiles() {
-
+function draw() {
+    // clear before redraw
+    context.clearRect(0, 0, canvas.width, canvas.height);
     drawGrid();
 
-    context.fillStyle = "red";
-    context.beginPath();
     for (var i = 0; i < tiles.length; i++) {
         if (tiles[i] !== undefined) {
 
+            tileImage = document.getElementById('tile-' + tiles[i]);
             var x = i % (roomWidth * col);
             var y = Math.floor(i / (roomWidth * col));
-            // console.log(x, y);
 
-            context.fillRect(
+            context.drawImage(
+                tileImage,
                 x * tileSize * initialScale,
                 y * tileSize * initialScale,
                 tileSize * initialScale,
                 tileSize * initialScale
-            );
+            )
         }
     }
-
-    // context.strokeStyle = "red";
-    context.stroke();
 }
 
-$('canvas').click(function (e) {
-    var p = getMousePos(canvas, e);
-
-    var index = p.x + (p.y * roomWidth * col);
-    tiles[index] = 1;
-
-    // console.log(index, p);
-    drawTiles();
-});
-
-/*
-$('canvas').mousedown(function (e) {
-    var pos = getMousePos(canvas, e);
-
-    paint = true;
-    addClick(
-        pos.x,
-        pos.y
-    );
-    redraw()
-})
-
-$('canvas').mousemove(function (e) {
-    if (paint) {
-
-        var pos = getMousePos(canvas, e);
-
-        addClick(
-            pos.x,
-            pos.y,
-            true
-        );
-        redraw();
-    }
-})
-
-$('canvas').mouseup(function (e) {
-    paint = false;
-});
-
-$('canvas').mouseleave(function (e) {
-    paint = false;
-});
-
-
-var clickX = new Array();
-var clickY = new Array();
-var clickDrag = new Array();
-var paint;
-
-function addClick(x, y, dragging) {
-    clickX.push(x);
-    clickY.push(y);
-    clickDrag.push(dragging);
+var mouseButtonDown = false;
+function mousedown(e) {
+    mouseButtonDown = true;
 }
 
-function redraw() {
-    context.clearRect(0, 0, context.canvas.width, context.canvas.height);// Clears the canvas
+function mouseup(e) {
+    mouseButtonDown = false;
+}
 
-    context.strokeStyle = "#df4b26";
-    context.lineJoin = "square";
-    context.lineWidth = 5;
 
-    for (var i = 0; i < clickX.length; i++) {
-        context.beginPath();
-        if (clickDrag[i] && i) {
-            context.moveTo(clickX[i - 1], clickY[i - 1]);
-        } else {
-            context.moveTo(clickX[i] - 1, clickY[i]);
-        }
-        context.lineTo(clickX[i], clickY[i]);
-        context.closePath();
-        context.stroke();
+var brushId = 1;
+
+function paint(e) {
+    if (mouseButtonDown) {
+        var p = getMousePos(canvas, e);
+        var index = p.x + (p.y * roomWidth * col);
+        tiles[index] = brushId;
+        draw();
     }
 }
-*/
+
+reinitCanvas();

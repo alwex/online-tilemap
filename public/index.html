@@ -15,7 +15,9 @@
 </head>
 
 <body>
+
 <nav class="navbar navbar-inverse navbar-fixed-top">
+
     <div class="container-fluid">
 
         <div class="navbar-header">
@@ -39,10 +41,10 @@
                     <span class="glyphicon glyphicon-folder-open"></span>
                 </button>
                 <button type="button" class="btn btn-default navbar-btn">
-                    <span class="glyphicon glyphicon-save"></span>
+                    <span class="glyphicon glyphicon-floppy-disk"></span>
                 </button>
             </div>
-            <div id="panel-tools" class="btn-group" role="group">
+            <div id="panel-tools-0" class="btn-group" role="group">
                 <button id="btn-pencil" type="button" class="btn btn-default navbar-btn">
                     <span class="glyphicon glyphicon-pencil"></span>
                 </button>
@@ -52,30 +54,45 @@
                 <button id="btn-font" type="button" class="btn btn-default navbar-btn">
                     <span class="glyphicon glyphicon-font"></span>
                 </button>
+            </div>
 
+            <div id="panel-tools-1" class="btn-group" role="group">
+                <button id="btn-hide" type="button" class="btn btn-default navbar-btn">
+                    <span class="glyphicon glyphicon-eye-close"></span>
+                </button>
             </div>
 
             <div id="panel-tools-2" class="btn-group" role="group">
-                <button id="btn-hide" type="button" class="btn btn-default navbar-btn">
-                    <span class="glyphicon glyphicon-eye-close"></span>
+                <button id="btn-zoom-out" type="button" class="btn btn-default navbar-btn">
+                    <span class="glyphicon glyphicon-zoom-out"></span>
+                </button>
+                <button id="btn-zoom-in" type="button" class="btn btn-default navbar-btn">
+                    <span class="glyphicon glyphicon-zoom-in"></span>
                 </button>
             </div>
 
         </div>
     </div>
 </nav>
+
 <div class="container-fluid" id="content-wrapper">
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-10" id="map-wrapper">
             <div id="map">
-                <canvas id="canvas" width="490" height="220"></canvas>
+                <canvas id="canvas"></canvas>
             </div>
         </div>
-    </div>
-</div>
-<div id="popover-content">
-    <div class="form-group">
-        <textarea class="form-control" rows="2" cols="10"></textarea>
+        <div class="col-md-2" id="sidebar-wrapper">
+            <div class="panel panel-default">
+                <div class="panel-heading">Tileset</div>
+                <div class="panel-body" id="tileset">
+                    <img id="tile-1" data-tile-id="1" src="images/tiles/brique.png"/>
+                    <img id="tile-2" data-tile-id="2" src="images/tiles/floor.png"/>
+                    <img id="tile-3" data-tile-id="3" src="images/tiles/grass.png"/>
+                    <img id="tile-4" data-tile-id="4" src="images/tiles/wood.png"/>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -87,6 +104,8 @@
         crossorigin="anonymous"></script>
 
 <script type="text/javascript" src="js/app.js"></script>
+<script type="text/javascript" src="js/toolbar.js"></script>
+<script type="text/javascript" src="js/tileset.js"></script>
 </body>
 
 </html>

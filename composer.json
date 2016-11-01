@@ -1,0 +1,12 @@
+{
+    "name": "alwex/online-tilemap",
+    "require": {
+        "silex/silex": "^2.0"
+    },
+    "authors": [
+        {
+            "name": "Alexandre GUIDET",
+            "email": "guidet.alexandre@gmail.com"
+        }
+    ]
+}
