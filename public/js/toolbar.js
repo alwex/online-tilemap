@@ -33,6 +33,9 @@ $('#btn-save').click(function () {
 });
 
 $('#btn-load').click(function () {
-
+    $.get("/map/load", function( data ) {
+        tiles = JSON.parse(data);
+        reinitCanvas();
+    });
 });
 
