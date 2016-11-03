@@ -1,12 +1,16 @@
 {
-    "name": "alwex/online-tilemap",
-    "require": {
-        "silex/silex": "^2.0"
-    },
-    "authors": [
-        {
-            "name": "Alexandre GUIDET",
-            "email": "guidet.alexandre@gmail.com"
-        }
-    ]
+  "name": "alwex/online-tilemap",
+  "require": {
+    "silex/silex": "^2.0",
+    "deployer/deployer": "^3.3"
+  },
+  "config": {
+    "bin-dir": "bin"
+  },
+  "authors": [
+    {
+      "name": "Alexandre GUIDET",
+      "email": "guidet.alexandre@gmail.com"
+    }
+  ]
 }

@@ -22,7 +22,7 @@ $('#btn-erase').click(function () {
 $('#btn-save').click(function () {
     console.log(tiles);
     $.ajax({
-        url: '/map/save',
+        url: '/map/save/' + currentMap,
         type: 'post',
         dataType: 'json',
         success: function (data) {

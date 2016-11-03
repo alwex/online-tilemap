@@ -8,19 +8,21 @@
 
 require_once __DIR__.'/../vendor/autoload.php';
 
+use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-$app = new Silex\Application();
+$app = new Application();
 
-$app->post('/map/save', function (Request $request) {
-    file_put_contents('/tmp/map.json', $request->get('map'));
+$app->post('/map/save/{file}', function (Application $app, Request $request, $file) {
+    file_put_contents('./maps/'.$file.'.json', $request->get('map'));
 
     return new Response('map saved');
 });
 
-$app->get('/map/load', function () {
-    $map = file_get_contents('/tmp/map.json');
+$app->get('/map/load/{file}', function ($file) {
+    $map = file_get_contents('./maps/'.$file.'.json');
+
     return new Response($map);
 });
 

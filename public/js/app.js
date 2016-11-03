@@ -2,12 +2,16 @@
  * Created by aguidet on 31/10/16.
  */
 
+var currentMap = getUrlParameter('file') || 'generic';
+
 // map setting
 var tileSize = 16;
 var roomWidth = 20;
 var roomHeight = 10;
 var col = 4;
 var row = 10;
+
+
 
 // actual structure for map
 // then layers later
@@ -128,7 +132,7 @@ function paint(e) {
 
 reinitCanvas();
 
-$.get("/map/load", function( data ) {
+$.get("/map/load/" + currentMap, function( data ) {
     tiles = JSON.parse(data);
     reinitCanvas();
 });
