@@ -1,0 +1,37 @@
+$margin-top: 70px;
+
+body {
+  overflow-x: scroll;
+}
+
+#content-wrapper {
+  margin-top: $margin-top;
+}
+
+#map-wrapper {
+  overflow-x: scroll;
+  overflow-y: scroll;
+  max-height: 700px;
+}
+
+#tileset {
+  img {
+    width: 32px;
+    border: 2px solid white;
+
+    &.selected {
+      border: 2px solid red;
+    }
+  }
+}
+
+canvas {
+  border: 1px solid black;
+  display: block;
+
+  image-rendering: optimizeSpeed;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: optimize-contrast;
+  -ms-interpolation-mode: nearest-neighbor;
+}

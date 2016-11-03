@@ -12,6 +12,7 @@ var row = 10;
 // actual structure for map
 // then layers later
 var tiles = new Array();
+
 var tileImage = document.getElementById('tile-1');
 
 // canvas setting
@@ -88,7 +89,7 @@ function draw() {
     drawGrid();
 
     for (var i = 0; i < tiles.length; i++) {
-        if (tiles[i] !== undefined) {
+        if (tiles[i] !== undefined && tiles[i] !== null) {
 
             tileImage = document.getElementById('tile-' + tiles[i]);
             var x = i % (roomWidth * col);
@@ -114,7 +115,6 @@ function mouseup(e) {
     mouseButtonDown = false;
 }
 
-
 var brushId = 1;
 
 function paint(e) {
@@ -127,3 +127,8 @@ function paint(e) {
 }
 
 reinitCanvas();
+
+$.get("/map/load", function( data ) {
+    tiles = JSON.parse(data);
+    reinitCanvas();
+});

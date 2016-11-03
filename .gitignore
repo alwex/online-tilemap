@@ -2,3 +2,5 @@
 /.twgit
 /.idea
 /vendor/
+/node_modules/
+/public/css/*
