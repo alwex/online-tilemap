@@ -23,3 +23,13 @@ canvas {
   image-rendering: -webkit-optimize-contrast;
   image-rendering: optimize-contrast;
   -ms-interpolation-mode: nearest-neighbor; }
+
+.panel .row {
+  margin-top: 40px;
+  padding: 0 10px; }
+
+.panel .clickable {
+  cursor: pointer; }
+
+.panel .panel-heading span {
+  font-size: 15px; }

@@ -5,17 +5,25 @@
 var currentMap = getUrlParameter('file') || 'generic';
 
 // map setting
-var tileSize = 16;
-var roomWidth = 20;
-var roomHeight = 10;
-var col = 4;
-var row = 10;
+// var tileSize = 16;
+// var roomWidth = 20;
+// var roomHeight = 10;
+// var col = 4;
+// var row = 10;
 
 
 
 // actual structure for map
 // then layers later
-var tiles = new Array();
+var currentMapData = {
+    name: 'generic',
+    tileSize: 16,
+    roomWidth: 20,
+    roomHeight: 10,
+    col: 4,
+    row: 10,
+    tiles: new Array()
+};
 
 var tileImage = document.getElementById('tile-1');
 
@@ -25,6 +33,13 @@ var context = canvas.getContext("2d");
 var initialScale = 1;
 
 function reinitCanvas() {
+
+    var tileSize = currentMapData.tileSize;
+    var roomWidth = currentMapData.roomWidth;
+    var roomHeight = currentMapData.roomHeight;
+    var col = currentMapData.col;
+    var row = currentMapData.row;
+
     context.scale(initialScale, initialScale);
     canvas.width = roomWidth * col * tileSize * initialScale;
     canvas.height = roomHeight * row * tileSize * initialScale;
@@ -37,6 +52,12 @@ canvas.addEventListener('mouseup', mouseup, false);
 
 // draw grid function
 function drawGrid() {
+
+    var tileSize = currentMapData.tileSize;
+    var roomWidth = currentMapData.roomWidth;
+    var roomHeight = currentMapData.roomHeight;
+    var col = currentMapData.col;
+    var row = currentMapData.row;
 
     var maxX = tileSize * roomWidth * col * initialScale;
     var maxY = tileSize * roomHeight * row * initialScale;
@@ -77,6 +98,13 @@ function drawGrid() {
 }
 
 function getMousePos(canvas, e) {
+
+    var tileSize = currentMapData.tileSize;
+    var roomWidth = currentMapData.roomWidth;
+    var roomHeight = currentMapData.roomHeight;
+    var col = currentMapData.col;
+    var row = currentMapData.row;
+
     var rect = canvas.getBoundingClientRect();
     var scaleX = canvas.width / rect.width;
     var scaleY = canvas.height / rect.height;
@@ -88,9 +116,18 @@ function getMousePos(canvas, e) {
 }
 
 function draw() {
+
+    var tileSize = currentMapData.tileSize;
+    var roomWidth = currentMapData.roomWidth;
+    var roomHeight = currentMapData.roomHeight;
+    var col = currentMapData.col;
+    var row = currentMapData.row;
+
     // clear before redraw
     context.clearRect(0, 0, canvas.width, canvas.height);
     drawGrid();
+
+    var tiles = currentMapData.tiles;
 
     for (var i = 0; i < tiles.length; i++) {
         if (tiles[i] !== undefined && tiles[i] !== null) {
@@ -122,10 +159,17 @@ function mouseup(e) {
 var brushId = 1;
 
 function paint(e) {
+
+    var tileSize = currentMapData.tileSize;
+    var roomWidth = currentMapData.roomWidth;
+    var roomHeight = currentMapData.roomHeight;
+    var col = currentMapData.col;
+    var row = currentMapData.row;
+
     if (mouseButtonDown) {
         var p = getMousePos(canvas, e);
         var index = p.x + (p.y * roomWidth * col);
-        tiles[index] = brushId;
+        currentMapData.tiles[index] = brushId;
         draw();
     }
 }
@@ -133,6 +177,7 @@ function paint(e) {
 reinitCanvas();
 
 $.get("/map/load/" + currentMap, function( data ) {
-    tiles = JSON.parse(data);
+    currentMapData = JSON.parse(data);
+    reloadProperties();
     reinitCanvas();
 });

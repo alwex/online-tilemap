@@ -35,3 +35,18 @@ canvas {
   image-rendering: optimize-contrast;
   -ms-interpolation-mode: nearest-neighbor;
 }
+
+.panel {
+  .row {
+    margin-top: 40px;
+    padding: 0 10px;
+  }
+
+  .clickable {
+    cursor: pointer;
+  }
+
+  .panel-heading span {
+    font-size: 15px;
+  }
+}

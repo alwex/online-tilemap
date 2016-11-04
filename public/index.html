@@ -7,17 +7,17 @@
           integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
     <!-- Optional theme -->
-    <!--
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
           integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-    -->
+
+    <!-- App theme -->
     <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 
 <body>
 
 <nav class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container-fluid">
+    <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
                     data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
@@ -26,12 +26,13 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Online Map Designer</a>
+            <a class="navbar-brand" href="#">MapIT</a>
         </div>
 
         <div class="collapse navbar-collapse">
 
-            <div class="btn-group" role="group">
+
+            <div class="btn-group " role="group">
                 <button type="button" class="btn btn-default navbar-btn">
                     <span class="glyphicon glyphicon-file"></span>
                 </button>
@@ -42,7 +43,9 @@
                     <span class="glyphicon glyphicon-floppy-disk"></span>
                 </button>
             </div>
-            <div id="panel-tools-0" class="btn-group" role="group">
+            <div class="btn-group " role="group">
+
+
                 <button id="btn-pencil" type="button" class="btn btn-default navbar-btn">
                     <span class="glyphicon glyphicon-pencil"></span>
                 </button>
@@ -53,14 +56,13 @@
                     <span class="glyphicon glyphicon-font"></span>
                 </button>
             </div>
+            <div class="btn-group " role="group">
 
-            <div id="panel-tools-1" class="btn-group" role="group">
                 <button id="btn-hide" type="button" class="btn btn-default navbar-btn">
                     <span class="glyphicon glyphicon-eye-close"></span>
                 </button>
             </div>
-
-            <div id="panel-tools-2" class="btn-group" role="group">
+            <div class="btn-group " role="group">
                 <button id="btn-zoom-out" type="button" class="btn btn-default navbar-btn">
                     <span class="glyphicon glyphicon-zoom-out"></span>
                 </button>
@@ -69,6 +71,14 @@
                 </button>
             </div>
 
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">current map <span class="caret"></span></a>
+                    <ul class="dropdown-menu" id="map-list">
+                    </ul>
+                </li>
+            </ul>
         </div>
     </div>
 </nav>
@@ -82,7 +92,50 @@
         </div>
         <div class="col-md-2" id="sidebar-wrapper">
             <div class="panel panel-default">
-                <div class="panel-heading">Tileset</div>
+                <div class="panel-heading">
+                    Properties
+                    <span class="pull-right clickable"><i class="glyphicon glyphicon-chevron-up"></i></span>
+                </div>
+                <div class="panel-body" id="properties">
+                    <form>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">tile</div>
+                                <input type="text" class="form-control" id="tile-size" placeholder="">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">room W</div>
+                                <input type="text" class="form-control" id="room-width" placeholder="">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">room H</div>
+                                <input type="text" class="form-control" id="room-height" placeholder="">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">col</div>
+                                <input type="text" class="form-control" id="col" placeholder="">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">row</div>
+                                <input type="text" class="form-control" id="row" placeholder="">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Tileset
+                    <span class="pull-right clickable"><i class="glyphicon glyphicon-chevron-up"></i></span>
+                </div>
                 <div class="panel-body" id="tileset">
                     <img id="tile-1" data-tile-id="1" src="images/tiles/brique.png"/>
                     <img id="tile-2" data-tile-id="2" src="images/tiles/floor.png"/>
@@ -105,6 +158,7 @@
 <script type="text/javascript" src="js/app.js"></script>
 <script type="text/javascript" src="js/toolbar.js"></script>
 <script type="text/javascript" src="js/tileset.js"></script>
+<script type="text/javascript" src="js/properties.js"></script>
 </body>
 
 </html>

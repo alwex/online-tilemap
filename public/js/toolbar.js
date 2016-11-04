@@ -1,6 +1,19 @@
 /**
  * Created by aguidet on 1/11/16.
  */
+
+// load the available maps in the list
+$.get("/map/list", function (data) {
+    mapList = JSON.parse(data);
+
+    mapList.forEach(function (map) {
+        $('#map-list').append(
+            '<li><a href="?file=' + map + '">' + map + '</a></li>'
+        );
+    });
+});
+
+
 $('#btn-zoom-in').click(function () {
     initialScale *= 1.5;
     reinitCanvas();
@@ -20,7 +33,6 @@ $('#btn-erase').click(function () {
 });
 
 $('#btn-save').click(function () {
-    console.log(tiles);
     $.ajax({
         url: '/map/save/' + currentMap,
         type: 'post',
@@ -28,14 +40,13 @@ $('#btn-save').click(function () {
         success: function (data) {
             // $('#target').html(data.msg);
         },
-        data: {'map': JSON.stringify(tiles)}
+        data: {'map': JSON.stringify(currentMapData)}
     });
 });
 
 $('#btn-load').click(function () {
-    $.get("/map/load", function( data ) {
-        tiles = JSON.parse(data);
+    $.get("/map/load", function (data) {
+        currentMapData = JSON.parse(data);
         reinitCanvas();
     });
 });
-
