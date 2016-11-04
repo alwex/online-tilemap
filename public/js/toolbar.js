@@ -25,11 +25,16 @@ $('#btn-zoom-out').click(function () {
 });
 
 $('#btn-pencil').click(function () {
-    brushId = 1
+    brushId = 1;
 });
 
 $('#btn-erase').click(function () {
-    brushId = undefined
+    brushId = undefined;
+});
+
+$('#btn-clear').click(function () {
+    currentMapData.tiles = [];
+    reinitCanvas();
 });
 
 $('#btn-save').click(function () {

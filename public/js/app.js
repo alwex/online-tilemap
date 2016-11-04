@@ -22,7 +22,7 @@ var currentMapData = {
     roomHeight: 10,
     col: 4,
     row: 10,
-    tiles: new Array()
+    tiles: []
 };
 
 var tileImage = document.getElementById('tile-1');
