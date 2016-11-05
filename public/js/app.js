@@ -10,7 +10,7 @@ var currentMapData = {
     name: 'generic',
     tileSize: 16,
     roomWidth: 20,
-    roomHeight: 10,
+    roomHeight: 12,
     col: 4,
     row: 10,
     tiles: [],
