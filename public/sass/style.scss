@@ -21,8 +21,7 @@ body {
 #tileset {
   img {
     width: 32px;
-    border: 2px solid white;
-
+    border: 0px solid white;
     &.selected {
       border: 2px solid red;
     }

@@ -43,6 +43,7 @@ function reinitCanvas() {
 
 canvas.addEventListener('mousemove', paint, false);
 canvas.addEventListener('mousedown', mousedown, false);
+canvas.addEventListener('mousedown', paint, false);
 canvas.addEventListener('mouseup', mouseup, false);
 
 // draw grid function
@@ -161,7 +162,6 @@ function draw(mouseIndex) {
         }
     }
 
-
     if (showAnnotations) {
         var annotations = currentMapData.annotations || [];
         for (var i = 0; i < annotations.length; i++) {
@@ -192,7 +192,7 @@ function draw(mouseIndex) {
                     context.fillText(
                         lines[lineIndex],
                         x * tileSize * initialScale,
-                        y * tileSize * initialScale + (lineIndex * initialScale * tileSize)
+                        y * tileSize * initialScale + (lineIndex * initialScale * tileSize) - (tileSize/5 * initialScale)
                     );
                 }
 

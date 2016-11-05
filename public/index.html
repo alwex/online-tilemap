@@ -8,9 +8,9 @@
 
     <!-- Optional theme -->
     <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"-->
-          <!--integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">-->
+    <!--integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">-->
 
-     App theme
+    App theme
     <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 
@@ -42,9 +42,7 @@
                     <span class="glyphicon glyphicon-floppy-disk"></span>
                 </button>
             </div>
-            <div class="btn-group " role="group">
-
-
+            <div id="tool-edit" class="btn-group " role="group">
                 <button id="btn-pencil" type="button" class="btn btn-default navbar-btn">
                     <span class="glyphicon glyphicon-pencil"></span>
                 </button>
@@ -83,9 +81,11 @@
                     </ul>
                 </li>
                 <li>
-                    <button id="btn-delete" type="button" class="btn btn-default navbar-btn">
-                        <span class="glyphicon glyphicon-trash"></span>
-                    </button>
+                    <div class="btn-group " role="group">
+                        <button id="btn-delete" type="button" class="btn btn-default navbar-btn">
+                            <span class="glyphicon glyphicon-trash"></span>
+                        </button>
+                    </div>
                 </li>
             </ul>
 
@@ -138,6 +138,39 @@
                                 <input type="text" class="form-control" id="row" placeholder="">
                             </div>
                         </div>
+                        <div class="btn-group " role="group">
+                            <button id="btn-add-up" type="button" class="btn btn-default navbar-btn">
+                                <span class="glyphicon glyphicon-chevron-up"></span>
+                            </button>
+                            <button id="btn-add-down" type="button" class="btn btn-default navbar-btn">
+                                <span class="glyphicon glyphicon-chevron-down"></span>
+                            </button>
+                        </div>
+                        <div class="btn-group " role="group">
+                            <button id="btn-sub-down" type="button" class="btn btn-default navbar-btn">
+                                <span class="glyphicon glyphicon-chevron-down"></span>
+                            </button>
+                            <button id="btn-sub-up" type="button" class="btn btn-default navbar-btn">
+                                <span class="glyphicon glyphicon-chevron-up"></span>
+                            </button>
+                        </div>
+                        <div class="btn-group " role="group">
+                            <button id="btn-add-left" type="button" class="btn btn-default navbar-btn">
+                                <span class="glyphicon glyphicon-chevron-left"></span>
+                            </button>
+                            <button id="btn-add-right" type="button" class="btn btn-default navbar-btn">
+                                <span class="glyphicon glyphicon-chevron-right"></span>
+                            </button>
+                        </div>
+                        <div class="btn-group " role="group">
+                            <button id="btn-sub-right" type="button" class="btn btn-default navbar-btn">
+                                <span class="glyphicon glyphicon-chevron-right"></span>
+                            </button>
+                            <button id="btn-sub-left" type="button" class="btn btn-default navbar-btn">
+                                <span class="glyphicon glyphicon-chevron-left"></span>
+                            </button>
+                        </div>
+
                     </form>
                 </div>
             </div>

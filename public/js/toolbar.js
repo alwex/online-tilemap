@@ -13,9 +13,19 @@ $.get("/map/list", function (data) {
     });
 });
 
+$('#tool-edit .btn').click(function () {
+    $('#tool-edit .btn').removeClass('active');
+    $(this).addClass('active');
+});
+
 $('#btn-hide').click(function () {
     showAnnotations = !showAnnotations;
     reinitCanvas();
+    if ($(this).hasClass('active')) {
+        $(this).removeClass('active');
+    } else {
+        $(this).addClass('active');
+    }
 });
 
 $('#btn-zoom-in').click(function () {
@@ -76,4 +86,18 @@ $('#btn-load').click(function () {
         currentMapData = JSON.parse(data);
         reinitCanvas();
     });
+});
+
+$('#btn-add-up').click(function () {
+    var row = parseInt(currentMapData.row);
+    row += 1;
+    currentMapData.row = row;
+    reinitCanvas();
+});
+
+$('#btn-add-down').click(function () {
+    var row = parseInt(currentMapData.row);
+    row += 1;
+    currentMapData.row = row;
+    reinitCanvas();
 });
