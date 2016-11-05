@@ -4,6 +4,7 @@
  * Please change the configuration for correct use deploy.
  */
 
+require __DIR__ . '/deploy.config.php';
 require 'recipe/composer.php';
 
 // Set configurations
@@ -13,9 +14,10 @@ set('shared_dirs', ['./public/maps', './public/images/tiles']);
 set('writable_dirs', ['./public/maps', './public/images/tiles']);
 
 // Configure servers
-server('production', 'tikotepadventure.com')
-    ->user('aguidet')
-    ->password()
-    ->env('deploy_path', '/var/www/online-tilemap');
+server('production', $server)
+    ->user($user)
+    ->identityFile()
+    ->env('deploy_path', '/var/www/online-tilemap')
+    ->stage('prod');
 
 after('deploy:update_code', 'deploy:shared');

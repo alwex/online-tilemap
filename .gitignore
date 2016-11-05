@@ -6,3 +6,4 @@
 /public/maps
 /bin/
 app.log
+deploy.config.php
