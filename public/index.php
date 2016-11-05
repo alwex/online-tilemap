@@ -38,7 +38,7 @@ $app->get('/map/load/{file}', function ($file) {
 /**
  * list available maps
  */
-$app->get('/map/list/', function ($file) use ($app) {
+$app->get('/map/list/', function () use ($app) {
 
     $mapList = glob("./maps/*.json");
     $cleanList = [];
@@ -52,5 +52,18 @@ $app->get('/map/list/', function ($file) use ($app) {
 
     return new Response(json_encode($cleanList));
 });
+
+/**
+ * get available tiles
+ */
+$app->get('/tiles/list/', function () use ($app) {
+
+    $tileList = glob("./images/tiles/*");
+
+    $app['monolog']->addInfo('available tiles '.var_export($tileList, true));
+
+    return new Response(json_encode($tileList));
+});
+
 
 $app->run();

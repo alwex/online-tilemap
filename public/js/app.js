@@ -4,15 +4,6 @@
 
 var currentMap = getUrlParameter('file') || 'generic';
 
-// map setting
-// var tileSize = 16;
-// var roomWidth = 20;
-// var roomHeight = 10;
-// var col = 4;
-// var row = 10;
-
-
-
 // actual structure for map
 // then layers later
 var currentMapData = {
@@ -156,7 +147,7 @@ function mouseup(e) {
     mouseButtonDown = false;
 }
 
-var brushId = 1;
+var brushId = undefined;
 
 function paint(e) {
 
@@ -174,10 +165,9 @@ function paint(e) {
     }
 }
 
-reinitCanvas();
-
+// init the map list
 $.get("/map/load/" + currentMap, function( data ) {
     currentMapData = JSON.parse(data);
+}).done(function () {
     reloadProperties();
-    reinitCanvas();
 });
