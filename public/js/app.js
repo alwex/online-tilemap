@@ -91,8 +91,8 @@ function drawRooms() {
     // draw th rooms
     context.beginPath();
     context.setLineDash([
-        tileSize/3 * initialScale,
-        tileSize/3 * initialScale
+        tileSize / 3 * initialScale,
+        tileSize / 3 * initialScale
     ]);
 
     for (var x = 0; x <= maxX; x += tileSize * initialScale * roomWidth) {
@@ -192,7 +192,7 @@ function draw(mouseIndex) {
                     context.fillText(
                         lines[lineIndex],
                         x * tileSize * initialScale,
-                        y * tileSize * initialScale + (lineIndex * initialScale * tileSize) - (tileSize/5 * initialScale)
+                        y * tileSize * initialScale + (lineIndex * initialScale * tileSize) - (tileSize / 5 * initialScale)
                     );
                 }
 
@@ -218,14 +218,58 @@ function draw(mouseIndex) {
     drawRooms();
 }
 
-var mouseButtonDown = false;
+var mouseLeftButtonDown = false;
 function mousedown(e) {
-    mouseButtonDown = true;
+    switch (e.which) {
+        case 1:
+            // left mouse
+            mouseLeftButtonDown = true;
+            break;
+        case 2:
+            // middle mouse
+            break;
+        case 3:
+            // right mouse
+            break;
+        default:
+        // not possible
+    }
 }
 
 function mouseup(e) {
-    mouseButtonDown = false;
+    switch (e.which) {
+        case 1:
+            // left mouse
+            mouseLeftButtonDown = false;
+            break;
+        case 2:
+            // middle mouse
+            break;
+        case 3:
+            // right mouse
+            break;
+        default:
+        // not possible
+    }
 }
+
+// select the tile at the current position
+$(document).on("contextmenu", "canvas", function (e) {
+    var roomWidth = currentMapData.roomWidth;
+    var col = currentMapData.col;
+    var p = getMousePos(canvas, e);
+    var index = p.x + (p.y * roomWidth * col);
+
+    if (currentMapData.tiles[index] !== undefined &&
+        currentMapData.tiles[index] !== null) {
+        $('#btn-pencil').click();
+        var id = currentMapData.tiles[index];
+        $('#tile-' + id).click();
+    } else {
+        $('#btn-erase').click();
+    }
+    return false;
+});
 
 var brushId = undefined;
 
@@ -239,7 +283,7 @@ function paint(e) {
     var p = getMousePos(canvas, e);
     var index = p.x + (p.y * roomWidth * col);
 
-    if (mouseButtonDown) {
+    if (mouseLeftButtonDown) {
 
         if (brushId === 'annotation') {
             currentMapData.annotations[index] = $('#annotation-text').val();
