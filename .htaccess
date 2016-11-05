@@ -3,8 +3,6 @@ AuthName "Password Protected Area"
 AuthUserFile /var/www/online-tilemap/.htpasswd
 Require valid-user
 
-AllowOverride All
-
 RewriteEngine On
 #RewriteBase /path/to/app
 RewriteCond %{REQUEST_FILENAME} !-d
