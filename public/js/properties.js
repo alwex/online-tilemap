@@ -3,6 +3,7 @@
  */
 
 function reloadProperties() {
+    $('#brand').text(currentMap);
     $('#tile-size').val(currentMapData.tileSize);
     $('#room-width').val(currentMapData.roomWidth);
     $('#room-height').val(currentMapData.roomHeight);

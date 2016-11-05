@@ -27,10 +27,23 @@ $app->post('/map/save/{file}', function (Application $app, Request $request, $fi
 });
 
 /**
+ * delete the map
+ */
+$app->post('/map/delete/{file}', function (Application $app, Request $request, $file) {
+    unlink('./maps/'.$file.'.json');
+    return new Response('map deleted');
+});
+
+/**
  * load a map
  */
 $app->get('/map/load/{file}', function ($file) {
-    $map = file_get_contents('./maps/'.$file.'.json');
+    $filename = './maps/'.$file.'.json';
+
+    $map = json_encode(0);
+    if (file_exists($filename)) {
+        $map = file_get_contents($filename);
+    }
 
     return new Response($map);
 });

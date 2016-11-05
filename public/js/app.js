@@ -13,7 +13,8 @@ var currentMapData = {
     roomHeight: 10,
     col: 4,
     row: 10,
-    tiles: []
+    tiles: [],
+    annotations: ['']
 };
 
 var tileImage = document.getElementById('tile-1');
@@ -22,6 +23,7 @@ var tileImage = document.getElementById('tile-1');
 var canvas = document.getElementById('canvas');
 var context = canvas.getContext("2d");
 var initialScale = 1;
+var showAnnotations = true;
 
 function reinitCanvas() {
 
@@ -71,6 +73,19 @@ function drawGrid() {
     context.strokeStyle = "silver";
     context.closePath();
     context.stroke();
+}
+
+// draw grid function
+function drawRooms() {
+
+    var tileSize = currentMapData.tileSize;
+    var roomWidth = currentMapData.roomWidth;
+    var roomHeight = currentMapData.roomHeight;
+    var col = currentMapData.col;
+    var row = currentMapData.row;
+
+    var maxX = tileSize * roomWidth * col * initialScale;
+    var maxY = tileSize * roomHeight * row * initialScale;
 
     // draw th rooms
     context.beginPath();
@@ -108,7 +123,7 @@ function getMousePos(canvas, e) {
     }
 }
 
-function draw() {
+function draw(mouseIndex) {
 
     var tileSize = currentMapData.tileSize;
     var roomWidth = currentMapData.roomWidth;
@@ -118,14 +133,16 @@ function draw() {
 
     // clear before redraw
     context.clearRect(0, 0, canvas.width, canvas.height);
+
     drawGrid();
 
-    var tiles = currentMapData.tiles;
+    var tiles = currentMapData.tiles || [];
 
     for (var i = 0; i < tiles.length; i++) {
         if (tiles[i] !== undefined && tiles[i] !== null) {
 
             tileImage = document.getElementById('tile-' + tiles[i]);
+
             var x = i % (roomWidth * col);
             var y = Math.floor(i / (roomWidth * col));
 
@@ -135,9 +152,65 @@ function draw() {
                 y * tileSize * initialScale,
                 tileSize * initialScale,
                 tileSize * initialScale
-            )
+            );
         }
     }
+
+
+    if (showAnnotations) {
+        var annotations = currentMapData.annotations || [];
+        for (var i = 0; i < annotations.length; i++) {
+            if (annotations[i] !== undefined && annotations[i] !== null) {
+
+                var x = i % (roomWidth * col);
+                var y = Math.floor(i / (roomWidth * col));
+
+                context.beginPath();
+                context.rect(
+                    x * tileSize * initialScale,
+                    y * tileSize * initialScale,
+                    tileSize * initialScale,
+                    tileSize * initialScale
+                );
+
+                context.strokeStyle = 'blue';
+                context.stroke();
+
+                var fontSize = 14 * initialScale;
+
+                context.beginPath();
+                context.fillStyle = "black";
+                context.font = "normal " + fontSize + "px Arial";
+
+                var lines = annotations[i].split('\n');
+                for (var lineIndex = 0; lineIndex < lines.length; lineIndex++) {
+                    context.fillText(
+                        lines[lineIndex],
+                        x * tileSize * initialScale,
+                        y * tileSize * initialScale + (lineIndex * initialScale * tileSize)
+                    );
+                }
+
+                context.stroke();
+            }
+        }
+    }
+
+    x = mouseIndex % (roomWidth * col);
+    y = Math.floor(mouseIndex / (roomWidth * col));
+
+    context.beginPath();
+    context.rect(
+        x * tileSize * initialScale,
+        y * tileSize * initialScale,
+        tileSize * initialScale,
+        tileSize * initialScale
+    );
+
+    context.strokeStyle = 'black';
+    context.stroke();
+
+    drawRooms();
 }
 
 var mouseButtonDown = false;
@@ -158,18 +231,28 @@ function paint(e) {
     var roomHeight = currentMapData.roomHeight;
     var col = currentMapData.col;
     var row = currentMapData.row;
+    var p = getMousePos(canvas, e);
+    var index = p.x + (p.y * roomWidth * col);
 
     if (mouseButtonDown) {
-        var p = getMousePos(canvas, e);
-        var index = p.x + (p.y * roomWidth * col);
-        currentMapData.tiles[index] = brushId;
-        draw();
+
+        if (brushId === 'annotation') {
+            currentMapData.annotations[index] = $('#annotation-text').val();
+        } else if (brushId === undefined) {
+            currentMapData.tiles[index] = brushId;
+            currentMapData.annotations[index] = brushId;
+        } else {
+            currentMapData.tiles[index] = brushId;
+        }
     }
+    draw(index);
 }
 
 // init the map list
-$.get("/map/load/" + currentMap, function( data ) {
-    currentMapData = JSON.parse(data);
+$.get("/map/load/" + currentMap, function (data) {
+    if (parseInt(data) !== 0) {
+        currentMapData = JSON.parse(data);
+    }
 }).done(function () {
     reloadProperties();
 });

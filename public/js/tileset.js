@@ -16,7 +16,7 @@ $.get("/tiles/list", function (data) {
     });
 }).done(function () {
     // pas terrible
-    setTimeout(reinitCanvas, 2);
+    setTimeout(reinitCanvas, 500);
 });
 
 $('#tileset').on('click', 'img', function () {

@@ -13,6 +13,10 @@ $.get("/map/list", function (data) {
     });
 });
 
+$('#btn-hide').click(function () {
+    showAnnotations = !showAnnotations;
+    reinitCanvas();
+});
 
 $('#btn-zoom-in').click(function () {
     initialScale *= 1.5;
@@ -22,6 +26,10 @@ $('#btn-zoom-in').click(function () {
 $('#btn-zoom-out').click(function () {
     initialScale /= 1.5;
     reinitCanvas();
+});
+
+$('#btn-font').click(function () {
+    brushId = 'annotation';
 });
 
 $('#btn-pencil').click(function () {
@@ -34,6 +42,7 @@ $('#btn-erase').click(function () {
 
 $('#btn-clear').click(function () {
     currentMapData.tiles = [];
+    currentMapData.annotations = [];
     reinitCanvas();
 });
 
@@ -44,6 +53,19 @@ $('#btn-save').click(function () {
         dataType: 'json',
         success: function (data) {
             // $('#target').html(data.msg);
+        },
+        data: {'map': JSON.stringify(currentMapData)}
+    });
+});
+
+$('#btn-delete').click(function () {
+    $.ajax({
+        url: '/map/delete/' + currentMap,
+        type: 'post',
+        dataType: 'json',
+        success: function (data) {
+            // $('#target').html(data.msg);
+            location.reload(true);
         },
         data: {'map': JSON.stringify(currentMapData)}
     });
