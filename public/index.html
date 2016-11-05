@@ -17,7 +17,7 @@
 <body>
 
 <nav class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container">
+    <div class="container" id="navbar">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
                     data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
@@ -30,7 +30,6 @@
         </div>
 
         <div class="collapse navbar-collapse">
-
 
             <div class="btn-group " role="group">
                 <button type="button" class="btn btn-default navbar-btn">
@@ -89,18 +88,19 @@
                     </button>
                 </li>
             </ul>
+
         </div>
     </div>
 </nav>
 
 <div class="container-fluid" id="content-wrapper">
     <div class="row">
-        <div class="col-md-9" id="map-wrapper">
+        <div class="col-md-10" id="map-wrapper">
             <div id="map">
                 <canvas id="canvas"></canvas>
             </div>
         </div>
-        <div class="col-md-3" id="sidebar-wrapper">
+        <div class="col-md-2" id="sidebar-wrapper">
             <div class="panel panel-default" id="panel-properties">
                 <div class="panel-heading">
                     Properties

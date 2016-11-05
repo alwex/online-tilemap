@@ -1,6 +1,9 @@
 body {
   overflow-x: scroll; }
 
+#navbar {
+  width: 98%; }
+
 #content-wrapper {
   margin-top: 70px; }
 

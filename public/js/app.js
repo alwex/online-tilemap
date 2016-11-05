@@ -89,6 +89,10 @@ function drawRooms() {
 
     // draw th rooms
     context.beginPath();
+    context.setLineDash([
+        tileSize/3 * initialScale,
+        tileSize/3 * initialScale
+    ]);
 
     for (var x = 0; x <= maxX; x += tileSize * initialScale * roomWidth) {
         context.moveTo(x, 0);
@@ -103,6 +107,7 @@ function drawRooms() {
     context.strokeStyle = "grey";
     context.closePath();
     context.stroke();
+    context.setLineDash([0, 0]);
 }
 
 function getMousePos(canvas, e) {
