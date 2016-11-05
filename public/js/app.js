@@ -35,6 +35,8 @@ function reinitCanvas() {
     canvas.width = roomWidth * col * tileSize * initialScale;
     canvas.height = roomHeight * row * tileSize * initialScale;
     draw();
+
+    $('#overlay').hide();
 }
 
 canvas.addEventListener('mousemove', paint, false);

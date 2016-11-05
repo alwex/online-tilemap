@@ -24,6 +24,16 @@ canvas {
   image-rendering: optimize-contrast;
   -ms-interpolation-mode: nearest-neighbor; }
 
+#overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  z-index: 1000;
+  opacity: 0.8; }
+
 .panel .row {
   margin-top: 40px;
   padding: 0 10px; }
