@@ -1,4 +1,4 @@
 AuthType Basic
 AuthName "Password Protected Area"
-AuthUserFile /var/www/online-tilemap/.htpasswd
+AuthUserFile /etc/htpasswd/.htpasswd
 Require valid-user
