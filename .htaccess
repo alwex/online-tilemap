@@ -1,5 +1,5 @@
 AuthType Basic
 AuthName "Password Protected Area"
-AuthUserFile /var/www/oneline-tilemap/.htpasswd
+AuthUserFile /var/www/online-tilemap/.htpasswd
 Require valid-user
 FallbackResource index.php
