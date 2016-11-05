@@ -1,2 +1,9 @@
 /.twgit_features_subject
 /.twgit
+/.idea
+/vendor/
+/node_modules/
+/public/maps
+/bin/
+app.log
+deploy.config.php
