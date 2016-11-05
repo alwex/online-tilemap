@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
 $app = new Application();
 
 $app->register(new Silex\Provider\MonologServiceProvider(), array(
-    'monolog.logfile' => __DIR__.'/../app.log',
+    'monolog.logfile' => '/var/log/oneline-tilemap/app.log',
 ));
 
 /**
