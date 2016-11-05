@@ -14,7 +14,7 @@ var currentMapData = {
     col: 4,
     row: 10,
     tiles: [],
-    annotations: ['']
+    annotations: []
 };
 
 var tileImage = document.getElementById('tile-1');
