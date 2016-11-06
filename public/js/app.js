@@ -18,7 +18,7 @@ var currentMapData = {
     col: 4,
     row: 10,
     tiles: [
-        {name: 'layer 1', tiles: []}
+        {name: 'layer 0', tiles: []}
     ],
     annotations: []
 };
@@ -312,9 +312,10 @@ $.get("/map/load/" + currentMap, function (data) {
 
         // retrocompatibility with old maps
         if (data.tiles[0] === null || data.tiles[0].name === undefined) {
+            console.log('migrate old maps');
             var oldMap = data.tiles;
             data.tiles = [{
-                name: 'layer 1',
+                name: 'layer 0',
                 tiles: oldMap
             }];
         }
