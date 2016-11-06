@@ -275,10 +275,10 @@ $(document).on("contextmenu", "canvas", function (e) {
     var p = getMousePos(canvas, e);
     var index = p.x + (p.y * roomWidth * col);
 
-    if (currentMapData.tiles[index] !== undefined &&
-        currentMapData.tiles[index] !== null) {
+    if (currentMapData.tiles[currentLayerIndex].tiles[index] !== undefined &&
+        currentMapData.tiles[currentLayerIndex].tiles[index] !== null) {
         $('#btn-pencil').click();
-        var id = currentMapData.tiles[index];
+        var id = currentMapData.tiles[currentLayerIndex].tiles[index];
         $('#tile-' + id).click();
     } else {
         $('#btn-erase').click();
