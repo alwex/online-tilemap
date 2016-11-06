@@ -323,6 +323,7 @@ $.get("/map/load/" + currentMap, function (data) {
         currentMapData = data;
     }
 }).done(function () {
+    reinitCanvas();
     reloadProperties();
     showLayers();
     bindLayerSelectors();
