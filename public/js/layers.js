@@ -56,5 +56,5 @@ $(function () {
         $('#layer-' + currentLayerIndex).first().click();
     });
 
-    $('.layer-selector').first().click();
+    $('#layer-' + currentLayerIndex).click();
 });
