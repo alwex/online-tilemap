@@ -33,9 +33,10 @@ function bindLayerSelectors() {
             var layerIndex = parseInt($(this).parent().attr('data-id'));
             displayLayer[layerIndex] = true;
         }
-
         reinitCanvas();
     });
+
+    $('#layer-' + currentLayerIndex).click();
 }
 
 $(function () {
@@ -52,9 +53,6 @@ $(function () {
 
         showLayers();
         bindLayerSelectors();
-
         $('#layer-' + currentLayerIndex).click();
     });
-
-    $('#layer-' + currentLayerIndex).click();
 });
