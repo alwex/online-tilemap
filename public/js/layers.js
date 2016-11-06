@@ -53,7 +53,7 @@ $(function () {
         showLayers();
         bindLayerSelectors();
 
-        $('#layer-' + currentLayerIndex).first().click();
+        $('#layer-' + currentLayerIndex).click();
     });
 
     $('#layer-' + currentLayerIndex).click();
