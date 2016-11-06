@@ -18,7 +18,7 @@ function initTileset() {
     }).done(function () {
         // reinitCanvas();
         // pas terrible
-        setTimeout(reinitCanvas, 500);
+        setTimeout(reinitCanvas, 3000);
     });
 }
 
