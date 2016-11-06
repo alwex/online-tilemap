@@ -2,6 +2,10 @@
  * Created by aguidet on 31/10/16.
  */
 
+$.ajaxSetup({
+    async: false
+});
+
 // GLOBALS
 var brushId = undefined;
 var currentLayerIndex = 0;
