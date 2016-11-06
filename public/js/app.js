@@ -324,4 +324,6 @@ $.get("/map/load/" + currentMap, function (data) {
     }
 }).done(function () {
     reloadProperties();
+    showLayers();
+    bindLayerSelectors();
 });
