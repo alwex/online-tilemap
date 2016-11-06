@@ -2,23 +2,25 @@
  * Created by aguidet on 1/11/16.
  */
 
+function initTileset() {
 // load the available tiles
-$.get("/tiles/list", function (data) {
-    var tilesList = data;
-    var index = 0;
+    $.get("/tiles/list", function (data) {
+        var tilesList = data;
+        var index = 0;
 
-    tilesList.forEach(function (img) {
-        $('#tileset').append(
-            '<img id="tile-' + index + '" data-tile-id="' + index + '" src="' + img + '"/>'
-        );
+        tilesList.forEach(function (img) {
+            $('#tileset').append(
+                '<img id="tile-' + index + '" data-tile-id="' + index + '" src="' + img + '"/>'
+            );
 
-        index++;
+            index++;
+        });
+    }).done(function () {
+        // reinitCanvas();
+        // pas terrible
+        setTimeout(reinitCanvas, 500);
     });
-}).done(function () {
-    // reinitCanvas();
-    // pas terrible
-    setTimeout(reinitCanvas, 500);
-});
+}
 
 $('#tileset').on('click', 'img', function () {
     $('#tileset img').removeClass('selected');
