@@ -42,7 +42,19 @@ canvas {
   padding: 0 10px; }
 
 .panel .clickable {
-  cursor: pointer; }
+  cursor: pointer;
+  cursor: hand; }
 
 .panel .panel-heading span {
   font-size: 15px; }
+
+#layers ul {
+  padding-left: 0; }
+
+#layers .layer-selector {
+  list-style: none; }
+  #layers .layer-selector:hover {
+    cursor: pointer;
+    cursor: hand; }
+  #layers .layer-selector.selected {
+    background-color: yellow; }

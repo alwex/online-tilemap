@@ -4,7 +4,7 @@
 
 // load the available tiles
 $.get("/tiles/list", function (data) {
-    var tilesList = JSON.parse(data);
+    var tilesList = data;
     var index = 0;
 
     tilesList.forEach(function (img) {
@@ -15,6 +15,7 @@ $.get("/tiles/list", function (data) {
         index++;
     });
 }).done(function () {
+    // reinitCanvas();
     // pas terrible
     setTimeout(reinitCanvas, 500);
 });

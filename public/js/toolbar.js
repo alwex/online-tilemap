@@ -4,7 +4,7 @@
 
 // load the available maps in the list
 $.get("/map/list", function (data) {
-    mapList = JSON.parse(data);
+    mapList = data;
 
     mapList.forEach(function (map) {
         $('#map-list').append(
@@ -51,34 +51,37 @@ $('#btn-erase').click(function () {
 });
 
 $('#btn-clear').click(function () {
-    currentMapData.tiles = [];
+    currentMapData.tiles[currentLayerIndex] = [];
     currentMapData.annotations = [];
     reinitCanvas();
 });
 
 $('#btn-save').click(function () {
+    $('#overlay').show();
     $.ajax({
         url: '/map/save/' + currentMap,
         type: 'post',
         dataType: 'json',
         success: function (data) {
-            // $('#target').html(data.msg);
+            $('#overlay').hide();
         },
         data: {'map': JSON.stringify(currentMapData)}
     });
 });
 
 $('#btn-delete').click(function () {
-    $.ajax({
-        url: '/map/delete/' + currentMap,
-        type: 'post',
-        dataType: 'json',
-        success: function (data) {
-            // $('#target').html(data.msg);
-            location.reload(true);
-        },
-        data: {'map': JSON.stringify(currentMapData)}
-    });
+    if (confirm("Are you sure you want do delete this map?")) {
+        $.ajax({
+            url: '/map/delete/' + currentMap,
+            type: 'post',
+            dataType: 'json',
+            success: function (data) {
+                // $('#target').html(data.msg);
+                location.reload(true);
+            },
+            data: {'map': JSON.stringify(currentMapData)}
+        });
+    }
 });
 
 $('#btn-load').click(function () {

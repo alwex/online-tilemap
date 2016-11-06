@@ -57,10 +57,25 @@ canvas {
   }
 
   .clickable {
-    cursor: pointer;
+    cursor: pointer; cursor: hand;
   }
 
   .panel-heading span {
     font-size: 15px;
+  }
+}
+
+#layers {
+  ul {
+    padding-left: 0;
+  }
+  .layer-selector {
+    list-style: none;
+    &:hover {
+      cursor: pointer; cursor: hand;
+    }
+    &.selected {
+      background-color: yellow;
+    }
   }
 }

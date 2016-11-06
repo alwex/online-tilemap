@@ -22,8 +22,7 @@ $app->register(new Silex\Provider\MonologServiceProvider(), array(
  */
 $app->post('/map/save/{file}', function (Application $app, Request $request, $file) {
     file_put_contents('./maps/'.$file.'.json', $request->get('map'));
-
-    return new Response('map saved');
+    return $app->json('map saved');
 });
 
 /**
@@ -31,21 +30,21 @@ $app->post('/map/save/{file}', function (Application $app, Request $request, $fi
  */
 $app->post('/map/delete/{file}', function (Application $app, Request $request, $file) {
     unlink('./maps/'.$file.'.json');
-    return new Response('map deleted');
+    return $app->json('map deleted');
 });
 
 /**
  * load a map
  */
-$app->get('/map/load/{file}', function ($file) {
+$app->get('/map/load/{file}', function (Application $app, Request $request, $file) {
     $filename = './maps/'.$file.'.json';
 
     $map = json_encode(0);
     if (file_exists($filename)) {
-        $map = file_get_contents($filename);
+        $map = json_decode(file_get_contents($filename));
     }
 
-    return new Response($map);
+    return $app->json($map);
 });
 
 /**
@@ -63,7 +62,7 @@ $app->get('/map/list/', function () use ($app) {
 
     $app['monolog']->addInfo('available maps '.var_export($cleanList, true));
 
-    return new Response(json_encode($cleanList));
+    return $app->json($cleanList);
 });
 
 /**
@@ -75,7 +74,7 @@ $app->get('/tiles/list/', function () use ($app) {
 
     $app['monolog']->addInfo('available tiles '.var_export($tileList, true));
 
-    return new Response(json_encode($tileList));
+    return $app->json($tileList);
 });
 
 

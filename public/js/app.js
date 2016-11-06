@@ -2,6 +2,10 @@
  * Created by aguidet on 31/10/16.
  */
 
+// GLOBALS
+var brushId = undefined;
+var currentLayerIndex = 0;
+var displayLayer = [];
 var currentMap = getUrlParameter('file') || 'generic';
 
 // actual structure for map
@@ -13,7 +17,9 @@ var currentMapData = {
     roomHeight: 12,
     col: 4,
     row: 10,
-    tiles: [],
+    tiles: [
+        {name: 'layer 1', tiles: []}
+    ],
     annotations: []
 };
 
@@ -24,6 +30,12 @@ var canvas = document.getElementById('canvas');
 var context = canvas.getContext("2d");
 var initialScale = 1;
 var showAnnotations = true;
+
+
+canvas.addEventListener('mousedown', mousedown, false);
+canvas.addEventListener('mouseup', mouseup, false);
+canvas.addEventListener('mousemove', paint, false);
+canvas.addEventListener('mousedown', paint, false);
 
 function reinitCanvas() {
 
@@ -40,11 +52,6 @@ function reinitCanvas() {
 
     $('#overlay').hide();
 }
-
-canvas.addEventListener('mousemove', paint, false);
-canvas.addEventListener('mousedown', mousedown, false);
-canvas.addEventListener('mousedown', paint, false);
-canvas.addEventListener('mouseup', mouseup, false);
 
 // draw grid function
 function drawGrid() {
@@ -142,24 +149,31 @@ function draw(mouseIndex) {
 
     drawGrid();
 
-    var tiles = currentMapData.tiles || [];
+    var layers = currentMapData.tiles;
+    for (var theLayerIndex = 0; theLayerIndex < layers.length; theLayerIndex++) {
 
-    for (var i = 0; i < tiles.length; i++) {
-        if (tiles[i] !== undefined && tiles[i] !== null) {
+        if (displayLayer[theLayerIndex] !== false) {
+            var tiles = layers[theLayerIndex].tiles || [];
 
-            tileImage = document.getElementById('tile-' + tiles[i]);
+            for (var i = 0; i < tiles.length; i++) {
+                if (tiles[i] !== undefined && tiles[i] !== null) {
 
-            var x = i % (roomWidth * col);
-            var y = Math.floor(i / (roomWidth * col));
+                    tileImage = document.getElementById('tile-' + tiles[i]);
 
-            context.drawImage(
-                tileImage,
-                x * tileSize * initialScale,
-                y * tileSize * initialScale,
-                tileSize * initialScale,
-                tileSize * initialScale
-            );
+                    var x = i % (roomWidth * col);
+                    var y = Math.floor(i / (roomWidth * col));
+
+                    context.drawImage(
+                        tileImage,
+                        x * tileSize * initialScale,
+                        y * tileSize * initialScale,
+                        tileSize * initialScale,
+                        tileSize * initialScale
+                    );
+                }
+            }
         }
+
     }
 
     if (showAnnotations) {
@@ -171,6 +185,7 @@ function draw(mouseIndex) {
                 var y = Math.floor(i / (roomWidth * col));
 
                 context.beginPath();
+                // context.fillStyle = 'yellow';
                 context.rect(
                     x * tileSize * initialScale,
                     y * tileSize * initialScale,
@@ -178,7 +193,7 @@ function draw(mouseIndex) {
                     tileSize * initialScale
                 );
 
-                context.strokeStyle = 'blue';
+                context.strokeStyle = 'orange';
                 context.stroke();
 
                 var fontSize = 14 * initialScale;
@@ -271,27 +286,21 @@ $(document).on("contextmenu", "canvas", function (e) {
     return false;
 });
 
-var brushId = undefined;
-
 function paint(e) {
 
-    var tileSize = currentMapData.tileSize;
     var roomWidth = currentMapData.roomWidth;
-    var roomHeight = currentMapData.roomHeight;
     var col = currentMapData.col;
-    var row = currentMapData.row;
     var p = getMousePos(canvas, e);
     var index = p.x + (p.y * roomWidth * col);
 
     if (mouseLeftButtonDown) {
-
         if (brushId === 'annotation') {
             currentMapData.annotations[index] = $('#annotation-text').val();
         } else if (brushId === undefined) {
-            currentMapData.tiles[index] = brushId;
+            currentMapData.tiles[currentLayerIndex].tiles[index] = brushId;
             currentMapData.annotations[index] = brushId;
         } else {
-            currentMapData.tiles[index] = brushId;
+            currentMapData.tiles[currentLayerIndex].tiles[index] = brushId;
         }
     }
     draw(index);
@@ -300,7 +309,17 @@ function paint(e) {
 // init the map list
 $.get("/map/load/" + currentMap, function (data) {
     if (parseInt(data) !== 0) {
-        currentMapData = JSON.parse(data);
+
+        // retrocompatibility with old maps
+        if (data.tiles[0].name === undefined) {
+            var oldMap = data.tiles;
+            data.tiles = {
+                name: 'layer 1',
+                tiles: oldMap
+            };
+        }
+
+        currentMapData = data;
     }
 }).done(function () {
     reloadProperties();
