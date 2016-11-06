@@ -313,10 +313,10 @@ $.get("/map/load/" + currentMap, function (data) {
         // retrocompatibility with old maps
         if (data.tiles[0] === null || data.tiles[0].name === undefined) {
             var oldMap = data.tiles;
-            data.tiles = {
+            data.tiles = [{
                 name: 'layer 1',
                 tiles: oldMap
-            };
+            }];
         }
 
         currentMapData = data;
